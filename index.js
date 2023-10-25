@@ -19,9 +19,10 @@ class Player {
         const image = new Image()
         image.src = './images/player.png'
         image.onload = ()=>{
+            const scale = 0.25
             this.image = image
-            this.width = image.width
-            this.height = image.height
+            this.width = image.width * scale
+            this.height = image.height * scale
         }
     }
 
@@ -29,6 +30,7 @@ class Player {
         // c.fillStyle = 'red'
         // c.fillRect(this.position.x,this.position.y,
         //    this.width,this.height)
+        if(this.image)
         c.drawImage(
             this.image,
             this.position.x,
