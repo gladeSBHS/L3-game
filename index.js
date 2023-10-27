@@ -7,12 +7,11 @@ canvas.height = innerHeight
 
 class Player {
     constructor() {
-
-
         this.velocity = {
             x: 0,
             y: 0
         }
+        this.rotation = 0
         const image = new Image()
         image.src = './images/player.png'
         image.onload = () => {
@@ -32,13 +31,27 @@ class Player {
         // c.fillRect(this.position.x,this.position.y,
         //    this.width,this.height)
 
+        c.save()
+        c.translate(
+         player.position.x + player.width / 2,
+         player.position.y + player.height / 2
+         )
+          c.rotate(this.rotation)
+
+          c.translate(
+            -player.position.x - player.width / 2,
+            -player.position.y - player.height / 2
+            )
         c.drawImage(
             this.image,
             this.position.x,
             this.position.y,
             this.width,
-            this.height)
+            this.height
+        )
+        c.restore()
     }
+
     update() {
         if (this.image) {
             this.draw()
@@ -67,17 +80,22 @@ function animate() {
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
-    if (keys.a.pressed  && player.position.x >= 0 ) {
+    if (keys.a.pressed && player.position.x >= 0) {
         player.velocity.x = -5
-    }else if (keys.d.pressed && player.position.x+ player.width <+ canvas.width) {
+        player.rotation = -0.15
+    } else if (keys.d.pressed && player.position.x + player.width < +canvas.width) {
         player.velocity.x = 5
-    }else {
+        player.rotation = 0.15
+    } else {
         player.velocity.x = 0
+        player.rotation = 0
     }
 }
 animate()
 
-addEventListener('keydown', ({key}) => {
+addEventListener('keydown', ({
+    key
+}) => {
     switch (key) {
         case 'a':
             console.log('left')
@@ -93,7 +111,9 @@ addEventListener('keydown', ({key}) => {
             break
     }
 })
-addEventListener('keyup', ({key}) => {
+addEventListener('keyup', ({
+    key
+}) => {
     switch (key) {
         case 'a':
             console.log('left')
