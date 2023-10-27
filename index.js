@@ -31,7 +31,7 @@ class Player {
         // c.fillStyle = 'red'
         // c.fillRect(this.position.x,this.position.y,
         //    this.width,this.height)
-        if(this.image)
+        
         c.drawImage(
             this.image,
             this.position.x,
@@ -39,16 +39,23 @@ class Player {
             this.width,
             this.height)
     }
+    update(){
+        if(this.image) {
+        this.draw()
+        this.position.x += this.velocity.x
+        }
+    }
 }
 
+
 const player = new Player()
-//player.draw()
+
 
 function animate() {
     requestAnimationFrame(animate)
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
-    player.draw()
+    player.update()
 }
 animate()
 
@@ -56,9 +63,11 @@ animate()
      switch (key) {
         case 'a':
             console.log('left')
+            player.velocity.x = -5
             break
         case 'd':
             console.log('right')
+            player.velocity.x = 5
             break
         case ' ':
             console.log('space')
