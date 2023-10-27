@@ -15,7 +15,7 @@ class Player {
         const image = new Image()
         image.src = './images/player.png'
         image.onload = () => {
-            const scale = 0.25
+            const scale = 0.3
             this.image = image
             this.width = image.width * scale
             this.height = image.height * scale
@@ -33,15 +33,15 @@ class Player {
 
         c.save()
         c.translate(
-         player.position.x + player.width / 2,
-         player.position.y + player.height / 2
-         )
-          c.rotate(this.rotation)
+            player.position.x + player.width / 2,
+            player.position.y + player.height / 2
+        )
+        c.rotate(this.rotation)
 
-          c.translate(
+        c.translate(
             -player.position.x - player.width / 2,
             -player.position.y - player.height / 2
-            )
+        )
         c.drawImage(
             this.image,
             this.position.x,
@@ -59,9 +59,41 @@ class Player {
         }
     }
 }
+class Projectile {
+    constructor({
+        position,
+        velocity
+    }) {
+        this.position = position
+        this.velocity = velocity
 
+        this.radius = 3
+    }
+    draw() {
+        c.beginPath()
+        c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
+        c.fillStyle = 'red'
+        c.fill()
+        c.closePath()
+    }
+    update() {
+        this.draw()
+        this.position.x += this.velocity.x
+        this.position.y += this.velocity.y
+    }
+}
 
 const player = new Player()
+const Projectiles = [new Projectile({
+ position: {
+    x:300,
+    y:300
+ },
+ velocity: {
+   x: 0,
+   y: 0
+ }
+})]
 const keys = {
     a: {
         pressed: false
@@ -80,6 +112,11 @@ function animate() {
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
+    Projectiles.forEach(Projectile => {
+        Projectile.update()
+
+    })
+
     if (keys.a.pressed && player.position.x >= 0) {
         player.velocity.x = -5
         player.rotation = -0.15
