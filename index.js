@@ -105,8 +105,13 @@ function animate() {
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
     Projectiles.forEach(Projectile => {
-        Projectile.update()
-
+    if(Projectile.position.y + Projectile.radius <= 0){
+       setTimeout(()=>{
+        Projectiles.splice(0, 1)
+       },0)
+    } else{
+        Projectile.update()   
+    }
     })
 
     if (keys.a.pressed && player.position.x >= 0) {
@@ -127,15 +132,15 @@ addEventListener('keydown', ({
 }) => {
     switch (key) {
         case 'a':
-            console.log('left')
+            //console.log('left')
             keys.a.pressed = true
             break
         case 'd':
-            console.log('right')
+            //console.log('right')
             keys.d.pressed = true
             break
         case ' ':
-            console.log('space')
+            //console.log('space')
             keys.space.pressed = true
             Projectiles.push(new Projectile({
                 position: {
@@ -144,9 +149,10 @@ addEventListener('keydown', ({
                 },
                 velocity: {
                     x: 0,
-                    y: -5
+                    y: -10
                 }
             }))
+            console.log(Projectiles)
             break
     }
 })
@@ -155,15 +161,15 @@ addEventListener('keyup', ({
 }) => {
     switch (key) {
         case 'a':
-            console.log('left')
+            //console.log('left')
             keys.a.pressed = false
             break
         case 'd':
-            console.log('right')
+            //console.log('right')
             keys.d.pressed = false
             break
         case ' ':
-            console.log('space')
+            //console.log('space')
             keys.space.pressed = false
             break
     }
