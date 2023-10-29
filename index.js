@@ -15,7 +15,7 @@ class Player {
         const image = new Image()
         image.src = './images/player.png'
         image.onload = () => {
-            const scale = 0.3
+            const scale = 0.25
             this.image = image
             this.width = image.width * scale
             this.height = image.height * scale
@@ -162,7 +162,7 @@ class Grid {
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
 
-        if (this.position.x + this.width >= canvas.width) {
+        if (this.position.x + this.width >= canvas.width || this.position.x <= 0) {
             this.velocity.x = -this.velocity.x
         }
     }
