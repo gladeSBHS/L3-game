@@ -83,7 +83,9 @@ class Projectile {
     }
 }
 class Invader {
-    constructor() {
+    constructor({
+        position
+    }) {
         this.velocity = {
             x: 0,
             y: 0
@@ -96,8 +98,8 @@ class Invader {
             this.width = image.width * scale
             this.height = image.height * scale
             this.position = {
-                x: canvas.width / 2 - this.width / 2,
-                y: canvas.height / 2
+                x: position.x,
+                y: position.y
             }
         }
     }
@@ -107,7 +109,7 @@ class Invader {
         // c.fillRect(this.position.x,this.position.y,
         //    this.width,this.height)
 
-        
+
         c.drawImage(
             this.image,
             this.position.x,
@@ -125,9 +127,39 @@ class Invader {
         }
     }
 }
+
+class Grid {
+    constructor() {
+        this.position = {
+            x: 0,
+            y: 0
+        }
+        this.velocity = {
+            x: 0,
+            y: 0
+        }
+        this.invaders = []
+
+        for (let x = 0; x < 10; x++) {
+            for (let y = 0; y < 10; y++) {
+                this.invaders.push(new Invader({
+                    position: {
+                        x: x * 30,
+                        y: y * 30
+                    }
+                }))
+            }
+        }
+        console.log(this.invaders)
+    }
+    update() {
+
+    }
+}
 const player = new Player()
 const Projectiles = []
-const invader = new Invader()
+const grids = [new Grid()]
+
 const keys = {
     a: {
         pressed: false
@@ -145,16 +177,22 @@ function animate() {
     requestAnimationFrame(animate)
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
-    invader.update()
     player.update()
     Projectiles.forEach(Projectile => {
-    if(Projectile.position.y + Projectile.radius <= 0){
-       setTimeout(()=>{
-        Projectiles.splice(0, 1)
-       },0)
-    } else{
-        Projectile.update()   
-    }
+        if (Projectile.position.y + Projectile.radius <= 0) {
+            setTimeout(() => {
+                Projectiles.splice(0, 1)
+            }, 0)
+        } else {
+            Projectile.update()
+        }
+    })
+
+    grids.forEach(grid => {
+        grid.update()
+        grid.invaders.forEach(invader => {
+            invader.update()
+        })
     })
 
     if (keys.a.pressed && player.position.x >= 0) {
