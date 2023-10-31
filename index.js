@@ -67,7 +67,7 @@ class Projectile {
         this.position = position
         this.velocity = velocity
 
-        this.radius = 3
+        this.radius = 4
     }
     draw() {
         c.beginPath()
@@ -208,9 +208,26 @@ function animate() {
 
     grids.forEach((grid) => {
         grid.update()
-        grid.invaders.forEach(invader => {
+        grid.invaders.forEach((invader, i) => {
             invader.update({
                 velocity: grid.velocity
+            })
+
+            Projectiles.forEach((Projectile, j) => {
+                if (Projectile.position.y - Projectile.radius <= invader.position.y + invader.height &&
+                    Projectile.position.x + Projectile.radius >= invader.position.x &&
+                    Projectile.position.x - Projectile.radius <= invader.position.x +invader.width &&
+                    Projectile.position.y + Projectile.radius >= invader.position.y) {
+
+                    setTimeout(() => {
+                        const invaderFound = grid.invaders.find(invader2 => invader2 === invader)
+                        const ProjectileFound = Projectiles.find(Projectile2 => Projectile2 === Projectile)
+                        if (invaderFound && ProjectileFound) {
+                            grid.invaders.splice(i, 1)
+                            Projectiles.splice(j, 1)
+                        }
+                    }, 0)
+                }
             })
         })
     })
@@ -226,12 +243,12 @@ function animate() {
         player.rotation = 0
     }
     //spawning enemies
-if (frames % randomInterval === 0){
-    grids.push(new Grid())
-    randomInterval = Math.floor(Math.random() * 500) + 500
-    frames = 0
-    console.log(randomInterval)
-}
+    if (frames % randomInterval === 0) {
+        grids.push(new Grid())
+        randomInterval = Math.floor(Math.random() * 500) + 500
+        frames = 0
+        console.log(randomInterval)
+    }
 
     frames++
 }
