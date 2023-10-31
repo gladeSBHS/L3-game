@@ -206,7 +206,7 @@ function animate() {
         }
     })
 
-    grids.forEach((grid) => {
+    grids.forEach((grid, gridIndex) => {
         grid.update()
         grid.invaders.forEach((invader, i) => {
             invader.update({
@@ -232,6 +232,8 @@ function animate() {
                               const  lastInvader = grid.invaders[grid.invaders.length - 1]
                               grid.width = lastInvader.position.x - firstInvader.position.x + lastInvader.width
                               grid.position.x = firstInvader.position.x
+                            }else {
+                                grids.splice(gridIndex,1)
                             }
                         }
                     }, 0)
