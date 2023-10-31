@@ -222,9 +222,17 @@ function animate() {
                     setTimeout(() => {
                         const invaderFound = grid.invaders.find(invader2 => invader2 === invader)
                         const ProjectileFound = Projectiles.find(Projectile2 => Projectile2 === Projectile)
+
+                        //remove invader and projectile
                         if (invaderFound && ProjectileFound) {
                             grid.invaders.splice(i, 1)
                             Projectiles.splice(j, 1)
+                            if(grid.invaders.length > 0){
+                              const  firstInvader = grid.invaders[0]
+                              const  lastInvader = grid.invaders[grid.invaders.length - 1]
+                              grid.width = lastInvader.position.x - firstInvader.position.x + lastInvader.width
+                              grid.position.x = firstInvader.position.x
+                            }
                         }
                     }, 0)
                 }
