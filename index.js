@@ -186,6 +186,7 @@ const keys = {
     }
 }
 
+let frames = 0
 
 function animate() {
     requestAnimationFrame(animate)
@@ -221,7 +222,13 @@ function animate() {
         player.velocity.x = 0
         player.rotation = 0
     }
+if (frames % 1000 === 0){
+    grids.push(new Grid())
 }
+
+    frames++
+}
+
 animate()
 
 addEventListener('keydown', ({
