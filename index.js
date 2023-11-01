@@ -251,13 +251,20 @@ const keys = {
         pressed: false
     }
 }
-
-let frames = 0
-let randomInterval = Math.floor(Math.random() * 500) + 500
 let game = {
     over: false,
-    active: true
+    active: false
 }
+
+function startGame() {
+    if(!game.active){
+        game.active = true;
+        animate()
+    }
+}
+let frames = 0
+let randomInterval = Math.floor(Math.random() * 500) + 500
+
 let score = 0
 
 
@@ -298,8 +305,10 @@ function createParticles({
     }
 }
 
+
+
 function animate() {
-    if(!game.active) return
+    if (!game.active) return
     requestAnimationFrame(animate)
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
@@ -458,7 +467,7 @@ addEventListener('keydown', ({
                     y: -10
                 }
             }))
-           //  console.log(Projectiles)
+            //  console.log(Projectiles)
             break
     }
 })

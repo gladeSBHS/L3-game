@@ -22,3 +22,7 @@ p{
 div{
     position: relative;
 }
+body, button {
+    color: blue;
+    font-family: cursive;
+}
