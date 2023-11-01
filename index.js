@@ -1,3 +1,4 @@
+const btn = document.getElementById('btn')
 const scoreEl = document.querySelector('#scoreEl')
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
@@ -257,10 +258,11 @@ let game = {
 }
 
 function startGame() {
-    if(!game.active){
+    if (!game.active) {
         game.active = true;
         animate()
     }
+    
 }
 let frames = 0
 let randomInterval = Math.floor(Math.random() * 500) + 500
@@ -489,3 +491,7 @@ addEventListener('keyup', ({
             break
     }
 })
+btn.addEventListener('click', () => {
+    // 👇️ hide button (still takes up space on page)
+    btn.style.visibility = 'hidden';
+});
