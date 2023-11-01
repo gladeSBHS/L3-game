@@ -1,5 +1,5 @@
+const scoreEl = document.querySelector('#scoreEl')
 const canvas = document.querySelector('canvas')
-//const c = document.getElementById('canvas')
 const c = canvas.getContext('2d')
 
 canvas.width = innerWidth
@@ -220,7 +220,7 @@ class Grid {
                 }))
             }
         }
-        console.log(this.invaders)
+        //console.log(this.invaders)
     }
     update() {
         this.position.x += this.velocity.x
@@ -258,7 +258,7 @@ let game = {
     over: false,
     active: true
 }
-
+let score = 0
 
 
 for (let i = 0; i < 100; i++) {
@@ -319,7 +319,7 @@ function animate() {
             particle.update()
         }
     })
-    console.log(particles)
+    //console.log(particles)
     invaderProjectiles.forEach((invaderProjectile, index) => {
         if (invaderProjectile.position.y + invaderProjectile.height >= canvas.height) {
             setTimeout(() => {
@@ -385,6 +385,9 @@ function animate() {
 
                         //remove invader and projectile
                         if (invaderFound && ProjectileFound) {
+                            score += 100
+                            //console.log(score)
+                            scoreEl.innerHTML = score
                             createParticles({
                                 object: invader,
                                 fades: true
@@ -455,7 +458,7 @@ addEventListener('keydown', ({
                     y: -10
                 }
             }))
-            console.log(Projectiles)
+           //  console.log(Projectiles)
             break
     }
 })
