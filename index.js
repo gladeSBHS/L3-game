@@ -27,10 +27,7 @@ class Player {
     }
 
     draw() {
-        // c.fillStyle = 'red'
-        // c.fillRect(this.position.x,this.position.y,
-        //    this.width,this.height)
-
+    
         c.save()
         c.translate(
             player.position.x + player.width / 2,
@@ -158,11 +155,7 @@ class Invader {
     }
 
     draw() {
-        // c.fillStyle = 'red'
-        // c.fillRect(this.position.x,this.position.y,
-        //    this.width,this.height)
-
-
+   
         c.drawImage(
             this.image,
             this.position.x,
@@ -297,9 +290,14 @@ function animate() {
                 invaderProjectiles.splice(index, 1)
             }, 0)
         } else invaderProjectile.update()
+        //projectile hits player
         if (invaderProjectile.position.y + invaderProjectile.height >= player.position.y &&
             invaderProjectile.position.x + invaderProjectile.width >= player.position.x &&
             invaderProjectile.position.x <= player.position.x + player.width) {
+
+            setTimeout(() => {
+                invaderProjectiles.splice(index, 1)
+            }, 0)
             console.log('you lose')
             createParticles({
                 object: player,
