@@ -12,6 +12,8 @@ class Player {
             y: 0
         }
         this.rotation = 0
+        this.opacity = 1
+
         const image = new Image()
         image.src = './images/player.png'
         image.onload = () => {
@@ -29,6 +31,7 @@ class Player {
     draw() {
 
         c.save()
+        c.globalAlpha = this.opacity
         c.translate(
             player.position.x + player.width / 2,
             player.position.y + player.height / 2
@@ -251,6 +254,12 @@ const keys = {
 
 let frames = 0
 let randomInterval = Math.floor(Math.random() * 500) + 500
+let game = {
+    over: false,
+    active: false
+}
+
+
 
 for (let i = 0; i < 100; i++) {
     particles.push(new Particle({
@@ -296,10 +305,10 @@ function animate() {
     player.update()
     particles.forEach((particle, i) => {
 
-if(particle.position.y - particle.radius >= canvas.height){
-    particle.position.x = Math.random() * canvas.width
-    particle.position.y = -particle.radius
-}
+        if (particle.position.y - particle.radius >= canvas.height) {
+            particle.position.x = Math.random() * canvas.width
+            particle.position.y = -particle.radius
+        }
 
         if (particle.opacity <= 0) {
             setTimeout(() => {
@@ -323,6 +332,8 @@ if(particle.position.y - particle.radius >= canvas.height){
 
             setTimeout(() => {
                 invaderProjectiles.splice(index, 1)
+                player.opacity = 0
+                game.over = true
             }, 0)
             console.log('you lose')
             createParticles({
@@ -417,6 +428,7 @@ animate()
 addEventListener('keydown', ({
     key
 }) => {
+    if (game.over) return
     switch (key) {
         case 'a':
             //console.log('left')
