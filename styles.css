@@ -1,10 +1,15 @@
 body {
+    padding-top:10%;
+    position: relative;
     margin: 0;
-    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
 }
 
 p{
-    position: fixed;
+    position: absolute;
     z-index: 10;
     color: white;
     left: 10px;
@@ -12,4 +17,8 @@ p{
     margin: 0;
     font-family: sans-serif;
     font-size:14px;
+}
+
+div{
+    position: relative;
 }

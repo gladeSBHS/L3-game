@@ -2,8 +2,8 @@ const scoreEl = document.querySelector('#scoreEl')
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
-canvas.width = innerWidth
-canvas.height = innerHeight
+canvas.width = 1024
+canvas.height = 576
 
 class Player {
     constructor() {
@@ -188,7 +188,7 @@ class Invader {
             },
             velocity: {
                 x: 0,
-                y: 5
+                y: 3
             }
         }))
     }
@@ -201,7 +201,7 @@ class Grid {
             y: 0
         }
         this.velocity = {
-            x: 3,
+            x: 2,
             y: 0
         }
         this.invaders = []
