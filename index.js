@@ -1,10 +1,11 @@
+const bg = document.getElementById('startScreen')
 const btn = document.getElementById('btn')
 const scoreEl = document.querySelector('#scoreEl')
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
 canvas.width = 1024
-canvas.height = 576
+canvas.height = 720
 
 class Player {
     constructor() {
@@ -235,6 +236,8 @@ class Grid {
         }
     }
 }
+
+
 const player = new Player()
 const Projectiles = []
 const grids = []
@@ -262,7 +265,7 @@ function startGame() {
         game.active = true;
         animate()
     }
-    
+   bg.style.backgroundColor = 'black'
 }
 let frames = 0
 let randomInterval = Math.floor(Math.random() * 500) + 500
