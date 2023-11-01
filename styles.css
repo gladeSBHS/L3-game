@@ -1,5 +1,5 @@
 body {
-    padding-top:10%;
+    padding-top:7% ;
     position: relative;
     margin: 0;
     display: flex;
@@ -20,16 +20,27 @@ p{
 div{
     position: relative;
     width: 1024;
-    height: 720;
+    height: 576;
 }
 body, button {
-    color: blue;
+    color: black;
     font-family: cursive;
 }
 #startScreen {
-    background-color:red;
+    background-color:black;
     position: relative;
     width: 1024;
     height: 720;
     border: 2px solid white;
+}
+h1,h2{
+    margin: 0;
+  text-align: center;
+  color: black;
+}
+button{
+    position: absolute;
+    margin-left: 41%;
+    margin-top: 300px;
+    font-size: 30px;
 }

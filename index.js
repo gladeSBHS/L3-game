@@ -5,7 +5,14 @@ const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
 canvas.width = 1024
-canvas.height = 720
+canvas.height = 576
+
+c.font = "30px sans-serif";
+c.fillStyle = "white";
+c.textAlign = "center";
+c.fillText("Controls:", canvas.width/2, canvas.height - canvas.height + 60); 
+c.fillText("'A' and 'D' to move and 'Space' to shoot", canvas.width/2, canvas.height - canvas.height + 120); 
+
 
 class Player {
     constructor() {
