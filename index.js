@@ -94,18 +94,24 @@ class Particle {
 
         this.radius = radius
         this.color = color
+        this.opacity = 1
     }
     draw() {
+        c.save()
+        c.globalAlpha = this.opacity
         c.beginPath()
         c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
         c.fillStyle = this.color
         c.fill()
         c.closePath()
+        c.restore()
     }
     update() {
         this.draw()
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
+
+        this.opacity -= 0.01
     }
 }
 class InvaderProjectile {
@@ -257,9 +263,16 @@ function animate() {
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
-    particles.forEach(particle => {
-        particle.update()
+    particles.forEach((particle, i) => {
+        if (particle.opacity <= 0) {
+            setTimeout(() => {
+                particles.splice(i, 1)
+            }, 0)
+        } else {
+            particle.update()
+        }
     })
+    console.log(particles)
     invaderProjectiles.forEach((invaderProjectile, index) => {
         if (invaderProjectile.position.y + invaderProjectile.height >= canvas.height) {
             setTimeout(() => {
