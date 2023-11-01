@@ -82,6 +82,32 @@ class Projectile {
         this.position.y += this.velocity.y
     }
 }
+class Particle {
+    constructor({
+        position,
+        velocity,
+        radius,
+        color
+    }) {
+        this.position = position
+        this.velocity = velocity
+
+        this.radius = radius
+        this.color = color
+    }
+    draw() {
+        c.beginPath()
+        c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
+        c.fillStyle = this.color
+        c.fill()
+        c.closePath()
+    }
+    update() {
+        this.draw()
+        this.position.x += this.velocity.x
+        this.position.y += this.velocity.y
+    }
+}
 class InvaderProjectile {
     constructor({
         position,
@@ -207,6 +233,7 @@ const player = new Player()
 const Projectiles = []
 const grids = []
 const invaderProjectiles = []
+const particles = []
 
 const keys = {
     a: {
@@ -230,15 +257,22 @@ function animate() {
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
+    particles.forEach(particle => {
+        particle.update()
+    })
     invaderProjectiles.forEach((invaderProjectile, index) => {
         if (invaderProjectile.position.y + invaderProjectile.height >= canvas.height) {
             setTimeout(() => {
                 invaderProjectiles.splice(index, 1)
             }, 0)
         } else invaderProjectile.update()
+        if (invaderProjectile.position.y + invaderProjectile.height >= player.position.y &&
+            invaderProjectile.position.x + invaderProjectile.width >= player.position.x &&
+            invaderProjectile.position.x <= player.position.x + player.width) {
+            console.log('you lose')
+        }
     })
 
-console.log(invaderProjectiles)
 
     Projectiles.forEach((Projectile, index) => {
         if (Projectile.position.y + Projectile.radius <= 0) {
@@ -262,12 +296,13 @@ console.log(invaderProjectiles)
             invader.update({
                 velocity: grid.velocity
             })
-
+            // projectiles hit enemy
             Projectiles.forEach((Projectile, j) => {
                 if (Projectile.position.y - Projectile.radius <= invader.position.y + invader.height &&
                     Projectile.position.x + Projectile.radius >= invader.position.x &&
                     Projectile.position.x - Projectile.radius <= invader.position.x + invader.width &&
                     Projectile.position.y + Projectile.radius >= invader.position.y) {
+
 
                     setTimeout(() => {
                         const invaderFound = grid.invaders.find(invader2 => invader2 === invader)
@@ -275,6 +310,20 @@ console.log(invaderProjectiles)
 
                         //remove invader and projectile
                         if (invaderFound && ProjectileFound) {
+                            for (let i = 0; i < 15; i++) {
+                                particles.push(new Particle({
+                                    position: {
+                                        x: invader.position.x + invader.width / 2,
+                                        y: invader.position.y + invader.height / 2
+                                    },
+                                    velocity: {
+                                        x: (Math.random() - 0.5) * 2,
+                                        y: (Math.random() - 0.5) * 2
+                                    },
+                                    radius: Math.random() * 3,
+                                    color: '#BAA0DE'
+                                }))
+                            }
                             grid.invaders.splice(i, 1)
                             Projectiles.splice(j, 1)
                             if (grid.invaders.length > 0) {
