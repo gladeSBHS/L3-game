@@ -1,5 +1,6 @@
 const bg = document.getElementById('startScreen')
 const btn = document.getElementById('btn')
+const button = document.getElementById('button')
 const scoreEl = document.querySelector('#scoreEl')
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
@@ -10,8 +11,8 @@ canvas.height = 576
 c.font = "30px sans-serif";
 c.fillStyle = "white";
 c.textAlign = "center";
-c.fillText("Controls:", canvas.width/2, canvas.height - canvas.height + 60); 
-c.fillText("'A' and 'D' to move and 'Space' to shoot", canvas.width/2, canvas.height - canvas.height + 120); 
+c.fillText("Controls:", canvas.width / 2, canvas.height - canvas.height + 60);
+c.fillText("'A' and 'D' to move and 'Space' to shoot", canvas.width / 2, canvas.height - canvas.height + 120);
 
 
 class Player {
@@ -262,6 +263,10 @@ const keys = {
         pressed: false
     }
 }
+if (btn.style.visibility = 'visible') {
+    button.style.visibility = 'hidden';
+}
+
 let game = {
     over: false,
     active: false
@@ -272,7 +277,11 @@ function startGame() {
         game.active = true;
         animate()
     }
-   bg.style.backgroundColor = 'black'
+    bg.style.backgroundColor = 'black'
+}
+
+function restart() {
+    location.reload();
 }
 let frames = 0
 let randomInterval = Math.floor(Math.random() * 500) + 500
@@ -317,8 +326,6 @@ function createParticles({
     }
 }
 
-
-
 function animate() {
     if (!game.active) return
     requestAnimationFrame(animate)
@@ -359,7 +366,11 @@ function animate() {
             }, 0)
             setTimeout(() => {
                 game.active = false
+                c.fillStyle = "red";
+                c.fillRect(0, 0, canvas.width, canvas.height)
+                button.style.visibility = 'visible';
             }, 2000)
+
             console.log('you lose')
             createParticles({
                 object: player,
