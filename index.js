@@ -282,6 +282,7 @@ function startGame() {
 
 function restart() {
     location.reload();
+
 }
 let frames = 0
 let randomInterval = Math.floor(Math.random() * 500) + 500
@@ -366,8 +367,13 @@ function animate() {
             }, 0)
             setTimeout(() => {
                 game.active = false
-                c.fillStyle = "red";
+                c.fillStyle = "black";
                 c.fillRect(0, 0, canvas.width, canvas.height)
+                c.font = "60px sans-serif";
+                c.fillStyle = "white";
+                c.textAlign = "center";
+                c.fillText("GAME OVER", canvas.width / 2, canvas.height - canvas.height + 120);
+                c.fillText("Your Score was:" + score, canvas.width / 2, canvas.height - canvas.height + 180);
                 button.style.visibility = 'visible';
             }, 2000)
 

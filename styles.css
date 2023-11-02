@@ -1,5 +1,5 @@
 body {
-    padding-top:7% ;
+    padding-top: 7%;
     position: relative;
     margin: 0;
     display: flex;
@@ -7,7 +7,8 @@ body {
     align-items: center;
     background-color: black;
 }
-p{
+
+p {
     position: absolute;
     z-index: 10;
     color: white;
@@ -15,32 +16,46 @@ p{
     top: 10px;
     margin: 0;
     font-family: sans-serif;
-    font-size:14px;
+    font-size: 14px;
 }
-div{
+
+div {
     position: relative;
     width: 1024;
     height: 576;
 }
-body, button {
+
+body,
+button {
     color: black;
-    font-family: cursive;
+    font-family: sans-serif;
 }
+
 #startScreen {
-    background-color:black;
+    background-color: black;
     position: relative;
     width: 1024;
     height: 720;
     border: 2px solid white;
 }
-h1,h2{
+
+h1,
+h2 {
     margin: 0;
-  text-align: center;
-  color: black;
+    text-align: center;
+    color: black;
 }
-button{
+
+#btn {
     position: absolute;
     margin-left: 41%;
+    margin-top: 300px;
+    font-size: 30px;
+}
+
+#button {
+    position: absolute;
+    margin-left: 42.5%;
     margin-top: 300px;
     font-size: 30px;
 }
