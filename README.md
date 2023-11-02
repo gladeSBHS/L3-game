@@ -1,6 +1,6 @@
-#G.Lade L3-game
-##Basic Space Invaders Game
-###Controls
+# G.Lade L3-game
+## Basic Space Invaders Game
+### Controls
 -A and D to move left and right
 -Space to shoot
 ### For L3 Programming Assesment
