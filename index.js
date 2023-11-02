@@ -1,3 +1,4 @@
+// Get references to various HTML elements and the canvas
 const bg = document.getElementById('startScreen')
 const btn = document.getElementById('btn')
 const button = document.getElementById('button')
@@ -5,25 +6,26 @@ const scoreEl = document.querySelector('#scoreEl')
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
+// Set the canvas dimensions and some drawing styles
 canvas.width = 1024
 canvas.height = 576
-
 c.font = "30px sans-serif";
 c.fillStyle = "white";
 c.textAlign = "center";
 c.fillText("Controls:", canvas.width / 2, canvas.height - canvas.height + 60);
 c.fillText("'A' and 'D' to move and 'Space' to shoot", canvas.width / 2, canvas.height - canvas.height + 120);
 
-
+// Define a class for the Player
 class Player {
     constructor() {
+        // Player's velocity, rotation, and opacity
         this.velocity = {
             x: 0,
             y: 0
         }
         this.rotation = 0
         this.opacity = 1
-
+        // Load the player image and set its properties
         const image = new Image()
         image.src = './images/player.png'
         image.onload = () => {
@@ -37,7 +39,7 @@ class Player {
             }
         }
     }
-
+    // Draw the player on the canvas
     draw() {
 
         c.save()
@@ -61,7 +63,7 @@ class Player {
         )
         c.restore()
     }
-
+    // Update the player's position and draw it
     update() {
         if (this.image) {
             this.draw()
@@ -127,6 +129,7 @@ class Particle {
             this.opacity -= 0.01
     }
 }
+// Define classes for Projectile, Particle, and Invader (similar to Player)
 class InvaderProjectile {
     constructor({
         position,
@@ -203,7 +206,7 @@ class Invader {
         }))
     }
 }
-
+// Create a grid of invaders
 class Grid {
     constructor() {
         this.position = {
@@ -232,6 +235,7 @@ class Grid {
         }
         //console.log(this.invaders)
     }
+    // Update the grid's position and behavior
     update() {
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
@@ -245,7 +249,7 @@ class Grid {
     }
 }
 
-
+// Initialize game objects and variables
 const player = new Player()
 const Projectiles = []
 const grids = []
@@ -271,7 +275,7 @@ let game = {
     over: false,
     active: false
 }
-
+// Function to start the game
 function startGame() {
     if (!game.active) {
         game.active = true;
@@ -279,17 +283,17 @@ function startGame() {
     }
     bg.style.backgroundColor = 'black'
 }
-
+// Function to restart the game
 function restart() {
     location.reload();
 
 }
+//variables for game loop control
 let frames = 0
 let randomInterval = Math.floor(Math.random() * 500) + 500
-
 let score = 0
 
-
+// Create initial particles
 for (let i = 0; i < 100; i++) {
     particles.push(new Particle({
         position: {
@@ -304,7 +308,7 @@ for (let i = 0; i < 100; i++) {
         color: 'white'
     }))
 }
-
+// Function to create particles for visual effects when certain events occur
 function createParticles({
     object,
     color,
@@ -326,9 +330,9 @@ function createParticles({
         }))
     }
 }
-
+// Animation loop for the game
 function animate() {
-    if (!game.active) return
+    if (!game.active) return; // If the game is not active, stop the animation loop
     requestAnimationFrame(animate)
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
@@ -469,7 +473,7 @@ function animate() {
 }
 
 animate()
-
+// Event listeners for keyboard input
 addEventListener('keydown', ({
     key
 }) => {
@@ -518,6 +522,7 @@ addEventListener('keyup', ({
             break
     }
 })
+// Event listener to hide the "Start Game" button
 btn.addEventListener('click', () => {
     // 👇️ hide button (still takes up space on page)
     btn.style.visibility = 'hidden';

@@ -9,10 +9,15 @@
 
 <body>
     <div id="startScreen">
-                <button id='btn' onclick="startGame()">Start Game</button>
-                <button id = 'button' onclick="restart()">Try Again</button>
-                <p><span>Score:</span> <span id="scoreEl">0</span></p>
-                <canvas></canvas>
+        <!-- Button to restart the game, triggers the "restart()" JavaScript function when clicked -->
+        <button id='btn' onclick="startGame()">Start Game</button>
+
+        <!-- Button to restart the game, triggers the "restart()" JavaScript function when clicked -->
+        <button id='button' onclick="restart()">Try Again</button>
+
+        <!-- displays the player's score -->
+        <p><span>Score:</span> <span id="scoreEl">0</span></p>
+        <canvas></canvas>
     </div>
 </body>
 <script src="./index.js">
